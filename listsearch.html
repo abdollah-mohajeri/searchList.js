@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست جستجو</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            padding: 20px;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul li {
+            padding: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>لیست جستجو</h1>
+    <input type="text" id="searchInput" placeholder="جستجو...">
+    <div>
+        <input type="checkbox" id="caseSensitive">
+        <label for="caseSensitive">حساس به حروف کوچک و بزرگ</label>
+    </div>
+    <ul id="nameList">
+        <li>ali</li>
+        <li>REZA</li>
+        <li>ALI</li>
+        <li>mohamad</li>
+        <li>babak</li>
+        <li>tavakol</li>
+        <li>Hassan</li>
+        <li>meysam</li>
+    </ul>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const caseSensitive = document.getElementById('caseSensitive');
+        const nameList = document.getElementById('nameList');
+        const listItems = Array.from(nameList.getElementsByTagName('li'));
+
+        // تابع فیلتر کردن لیست
+        function filterList() {
+            const query = searchInput.value;
+            const isCaseSensitive = caseSensitive.checked;
+
+            listItems.forEach(item => {
+                const itemName = item.textContent;
+                const startsWith = isCaseSensitive ?
+                    itemName.startsWith(query) :
+                    itemName.toLowerCase().startsWith(query.toLowerCase());
+
+                item.style.display = startsWith ? 'block' : 'none';
+            });
+        }
+
+        // اضافه کردن رویداد به اینپوت و چک‌باکس
+        searchInput.addEventListener('input', filterList);
+        caseSensitive.addEventListener('change', filterList);
+    </script>
+</body>
+
+</html>
